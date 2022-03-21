@@ -155,39 +155,91 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate  
     }
     
     
-    @objc private func registerButtonTaped(){
+   // @objc private func registerButtonTaped(){
         
-        emailField.resignFirstResponder()
-        passwordField.resignFirstResponder()
-        firstNameField.resignFirstResponder()
-        lastNameField.resignFirstResponder()
-        guard let email = emailField.text , let password = passwordField.text,let firstName = firstNameField.text , let lastName = lastNameField.text,  !email.isEmpty , !password.isEmpty ,!firstName.isEmpty , !lastName.isEmpty ,password.count >= 6 else{return alertUserLoginError()}
+//        emailField.resignFirstResponder()
+//        passwordField.resignFirstResponder()
+//        firstNameField.resignFirstResponder()
+//        lastNameField.resignFirstResponder()
+//        guard let email = emailField.text , let password = passwordField.text,let firstName = firstNameField.text , let lastName = lastNameField.text,  !email.isEmpty , !password.isEmpty ,!firstName.isEmpty , !lastName.isEmpty ,password.count >= 6 else{return alertUserLoginError()}
+//
+//        //firebase login
+//        DataBaseManager.shared.userExists(with: email, completion: {[weak self] exists in
+        //            guard let strongSelf = self else{return}
+        //            guard !exists else{
+        //
+        //
+        //                //user already exists
+        //                self?.alertUserLoginError(message: "Looks like a user account for that email address already exists")
+        //                return
+        //            }
+        //
+        //            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {authResult , error in
+        //
+        //                guard  authResult != nil , error == nil else {
+        //                    print("Error creating user")
+        //                    return
+        //                }
+        //
+        //                DataBaseManager.shared.insertUser(whith: ChatAppUser(firstname: firstName, lastName: lastName, emailAddress: email))
+        //
+        //                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        //        })
+        //
+        //
+        //        })
+//
         
-        //firebase login
-        
-        
-        
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {authResult , error in
+        @objc private func registerButtonTaped(){
+            emailField.resignFirstResponder()
+                   passwordField.resignFirstResponder()
+                  firstNameField.resignFirstResponder()
+                  lastNameField.resignFirstResponder()
             
             
+              guard let email = emailField.text,
+                    let password = passwordField.text,
+                    let firstname = firstNameField.text,
+                    let lastName = lastNameField.text,
+                    !email.isEmpty,
+                    !password.isEmpty,
+                    !firstname.isEmpty,
+                    !lastName.isEmpty,
+                    password.count >= 6 else {
+                  alertUserLoginError()
+                  return
+              }
             
-            
-            guard let result = authResult , error == nil else {
-                print("Error creating user")
-                return
-            }
-            
-            let user = result.user
-            print("Create User: \(user)")
-        })
+//                DataBaseManager.shared.userExists(with: email, completion: {[weak self] exists in
+//                            guard let strongSelf = self else{return}
+//                            guard !exists else{
+//                                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists")
+//                                return
+//                            }
+                    
+                    FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] authResult , error in
+                        guard let strongSelf = self else {return}
+                       guard  authResult != nil , error == nil else {
+                            print("Error creating user")
+                            return
+                        }
         
+                        DataBaseManager.shared.insertUser(whith: ChatAppUser(firstname: firstname, lastName: lastName, emailAddress: email))
         
-        
+                        strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                })
+                //})
+                
+                          
+                
+                
+                        
     }
+
     
-    func alertUserLoginError(){
+    func alertUserLoginError(message : String = "Please enter all the information to Create a new account"){
         
-        let Alert = UIAlertController.init(title: "Oops", message: "Please enter all the information to Create a new account", preferredStyle: .alert)
+        let Alert = UIAlertController.init(title: "Oops", message: message, preferredStyle: .alert)
         let action = UIAlertAction.init(title: "ok", style: .default, handler: nil)
         Alert.addAction(action)
         present(Alert, animated: true, completion: nil)

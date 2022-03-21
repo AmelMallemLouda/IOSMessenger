@@ -22,6 +22,9 @@ class ConversationsViewController: UIViewController {
         
         super.viewDidAppear(animated)
         validationAuth()
+        
+        
+      
     }
     
     

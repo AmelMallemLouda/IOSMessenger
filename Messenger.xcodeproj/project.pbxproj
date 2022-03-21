@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00AE1527C06E6BFEFBB430E3 /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6F7E73FCCDD89C07DB15B7B /* Pods_Messenger.framework */; };
 		CB30CC2E27E3C4420080C316 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB30CC2D27E3C4420080C316 /* Extensions.swift */; };
 		CB3BADC427E4E1410023A16B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB3BADC327E4E1410023A16B /* GoogleService-Info.plist */; };
+		CB3BADC727E50F9B0023A16B /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3BADC627E50F9B0023A16B /* DataBaseManager.swift */; };
 		CBBE6F0527E278DD00A1269D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE6F0427E278DD00A1269D /* AppDelegate.swift */; };
 		CBBE6F0727E278DD00A1269D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE6F0627E278DD00A1269D /* SceneDelegate.swift */; };
 		CBBE6F0927E278DD00A1269D /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBE6F0827E278DD00A1269D /* ConversationsViewController.swift */; };
@@ -29,6 +29,7 @@
 		C7A203113F1D095ECA4C72BF /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		CB30CC2D27E3C4420080C316 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CB3BADC327E4E1410023A16B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB3BADC627E50F9B0023A16B /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		CBBE6F0127E278DD00A1269D /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBE6F0427E278DD00A1269D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBBE6F0627E278DD00A1269D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		CBBE6F2B27E2809300A1269D /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		CBBE6F2E27E280BE00A1269D /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		CBBE6F3127E280CE00A1269D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		F6F7E73FCCDD89C07DB15B7B /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AE1527C06E6BFEFBB430E3 /* Pods_Messenger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +69,6 @@
 		7462F38845ADD4DE2753A74A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F6F7E73FCCDD89C07DB15B7B /* Pods_Messenger.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,6 +126,7 @@
 				CBBE6F0427E278DD00A1269D /* AppDelegate.swift */,
 				CBBE6F0D27E278DF00A1269D /* Assets.xcassets */,
 				CBBE6F0627E278DD00A1269D /* SceneDelegate.swift */,
+				CB3BADC627E50F9B0023A16B /* DataBaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -296,6 +295,7 @@
 				CBBE6F3227E280CE00A1269D /* ProfileViewController.swift in Sources */,
 				CBBE6F0727E278DD00A1269D /* SceneDelegate.swift in Sources */,
 				CBBE6F2927E2807C00A1269D /* PhotoViewerViewController.swift in Sources */,
+				CB3BADC727E50F9B0023A16B /* DataBaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
