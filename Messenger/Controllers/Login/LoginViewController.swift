@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -68,22 +69,36 @@ class LoginViewController: UIViewController {
     }()
 
     
-  
+  private let googleLogInButton = GIDSignInButton()
     
-    
+    private var loginObserver: NSObjectProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: {[weak self] _ in
+            guard let strongSef = self else {return}
+            strongSef.navigationController?.dismiss(animated: true, completion: nil)
+        })
+        GIDSignIn.sharedInstance()?.presentingViewController = self
         // subview
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(LoginButton)
+        scrollView.addSubview(googleLogInButton)
         view.backgroundColor = .white
        title = "Log In"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector( didTapRegister))
     }
     
+    
+    deinit {
+        if let observer = loginObserver{
+            NotificationCenter.default.removeObserver(observer)
+            return
+        }
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -95,6 +110,8 @@ class LoginViewController: UIViewController {
         LoginButton.frame = CGRect(x: 30, y: passwordField.bottom+10, width: scrollView.width-60, height: 52)
         
         LoginButton.addTarget(self, action: #selector(loginButtonTaped), for: .touchUpInside)
+        
+        googleLogInButton.frame = CGRect(x: 30, y: LoginButton.bottom+10, width: scrollView.width-60, height: 52)
         
         emailField.delegate = self
         passwordField.delegate = self
