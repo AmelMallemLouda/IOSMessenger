@@ -10,25 +10,25 @@ import MessageKit
 import InputBarAccessoryView
 
 struct Message : MessageType {
-    var sender: SenderType
+    public  var sender: SenderType
     
-    var messageId: String
+    public var messageId: String
     
-    var sentDate: Date
+    public   var sentDate: Date
     
-    var kind: MessageKind
+    public var kind: MessageKind
     
-   
+    
     
     
 }
 
 struct Sender : SenderType{
     
-    var photoURL : String
-    var senderId: String
+    public var photoURL : String
+    public var senderId: String
     
-    var displayName: String
+    public var displayName: String
     
     
 }

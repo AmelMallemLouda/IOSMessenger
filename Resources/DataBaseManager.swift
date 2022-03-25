@@ -41,54 +41,7 @@ extension DataBaseManager {
      })
         
     }
-    /// INSERTS NEW USER TO DATABASE
-//    public func insertUser(whith user: ChatAppUser , completion : @escaping (Bool)-> Void){
-//
-//        database.child(user.safeEmail).setValue(["first_Name" : user.firstname , "last_Name": user.lastName] , withCompletionBlock: {error , _ in
-//                                                guard error == nil else {
-//        print("Failed to write to database")
-//        completion(false)
-//        return
-//            }
-//            self.database.child("users").observeSingleEvent(of: .value, with: {snapshot in
-//
-//                if var userCollection = snapshot.value as? [[String : String]]{
-//
-//                //append to user dictionary
-//                    let newElement =  [
-//                        "name": user.firstname + " " + user.lastName,
-//                        "email": user.safeEmail
-//                       ]
-//                    userCollection.append(newElement)
-//                    self.database.child("users").setValue(userCollection , withCompletionBlock:  { error, _ in
-//
-//                        guard error == nil else {
-//                            completion(false)
-//                            return
-//                        }
-//                        completion(true)
-//                    })
-//            }else{
-//            //create array dictionary
-//            let newCollection : [[String: String]] = [
-//              [
-//                "name": user.firstname + " " + user.lastName,
-//                "email": user.safeEmail
-//               ]
-//            ]
-//                self.database.child("user").setValue(newCollection , withCompletionBlock:  { error, _ in
-//
-//                    guard error == nil else {
-//                        completion(false)
-//                        return
-//                    }
-//                    completion(true)
-//                })
-//            }
-//            })
-//    })
-//    }
-    
+  
     /// Inserts new user to database
     public func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([
@@ -194,6 +147,64 @@ extension DataBaseManager {
 extension DataBaseManager{
     /// Creates a new conversation with target user emamil and first message sent
       public func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let  currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let safeEmail = DataBaseManager.safeEmail(emailAddress: currentEmail)
+        let ref = database.child("\(safeEmail)")
+        ref.observeSingleEvent(of: .value, with: {snapshot in
+            guard var userNode = snapshot.value as? [String: Any] else{
+                completion(false)
+                print("user not found")
+                return
+            }
+            
+            let messageDate = firstMessage.sentDate
+            let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+            var message = " "
+            switch firstMessage.kind{
+            
+            case .text( let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            @unknown default:
+                break
+            }
+            let newConversationData : [String : Any] = [
+                "id" : "conversation_\(firstMessage.messageId)",
+                "other_user_email" : otherUserEmail,
+                "date" : dateString,
+                "message":  message,
+                "is_read": false,
+                ]
+            if var conversation = userNode["convesations"] as? [[String: Any]] {
+                
+            }else{
+               
+               //conversation array doea not exist
+                //create it
+                userNode["conversations"] = [
+                    newConversationData
+                ]
+            }
+        })
       }
     
     /// Fetches and returns all conversations for the user with passed in email
